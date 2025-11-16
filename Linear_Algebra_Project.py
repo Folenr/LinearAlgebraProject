@@ -19,6 +19,9 @@ class Matrix:
     def print(array):
         print(array.A)
 
+    def inverse(array):
+         return np.linalg.inv(array.A)  
+    
     def ref(array):
          return sp.Matrix(array.A).echelon_form()
     
@@ -52,17 +55,44 @@ class Matrix:
               dn = n.det()
               print(dn/d)
      
-    def dep(A):
-         if A.det() == 0:
-              print("The Matrix is Linear dependence")
-         else:
-              print("The Matrix is Linear independence")
+    def linDep(array):
+        M = sp.Matrix(array.A)
+        rank = M.rank()
+
+        if rank == array.col:
+            return "The set of vectors is Linearly Independent"
+        else:
+            return "The set of vectors is Linearly Dependent"
+     
+    def basisDimension(array):
+        M = sp.Matrix(array.A)
+        rref_M, pivots = M.rref()
+        
+        basis_vectors = [M.col(i) for i in pivots]
+        dimension = len(pivots)
+
+        return basis_vectors, dimension
+
+    def colSpace(array):
+        M = sp.Matrix(array.A)
+        return M.columnspace()
+
+    def rowSpace(array):
+        M = sp.Matrix(array.A)
+        return M.rowspace()
+    
+    def eigen(array):
+         return np.linalg.eig(array.A)
+    
+    def diag(array):
+         M = sp.Matrix(array.A)
+         return M.diagonalize()
+    
+    def diagVerify(array):
+         P, D = array.diag()
+         return P * D * P.inv()
 
 
 mat1 = Matrix()
 mat1.set()
-mat2 = Matrix()
-#mat2.set()
-mat3 = Matrix()
-#mat3.set()
-Matrix.dep(mat1)
+print(mat1.diagVerify())

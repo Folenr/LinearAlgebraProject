@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
+        "columnspace",
         "cramer",
         "linalg",
+        "rowspace",
         "rref"
     ]
 }
