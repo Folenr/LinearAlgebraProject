@@ -1,11 +1,15 @@
 import numpy as np
 import sympy as sp
+import webview
 
 class Matrix:
     def __init__(array,row=1,col=1,A=[]):
         array.row = row
         array.col = col
-        array.A = np.empty(shape=(0,0) ,dtype=int)
+        if(A==[]):
+          array.A = np.empty(shape=(row,col) ,dtype=int)
+        else:
+          array.A = A
 
     def set(array):
         array.row = int(input("rows: "))
@@ -93,6 +97,13 @@ class Matrix:
          return P * D * P.inv()
 
 
-mat1 = Matrix()
-mat1.set()
-print(mat1.diagVerify())
+mat1 = Matrix(3,3,[[1,2,3],[4,5,6],[7,8,9]])
+mat1.print()
+
+class API:
+    def say_hello(self):
+        print("Hello from JavaScript!")
+
+api = API()
+window = webview.create_window('My App', 'index.html', js_api=api)
+webview.start()
