@@ -1,14 +1,10 @@
-function sendInput() {
-    let text = document.getElementById("user_input").value;
-
-    pywebview.api.send(text).then(result => {
-        document.getElementById("output").innerHTML += result + "<br>";
-        document.getElementById("user_input").value = "";
+function print(id) {
+    if ( document.getElementById(id).innerHTML === null ||  document.getElementById(id).innerHTML.trim().length === 0) {
+    pywebview.api.print(id).then(result => {
+        result = result.replace(/\n/g, "<br>");
+        document.getElementById(id).innerHTML = result;
     });
+} else {
+        document.getElementById(id).innerHTML = null;
 }
-
-function print(){
-    pywebview.api.print().then(result => {
-        document.getElementById("output").innerHTML += result + "<br>";
-    });
 }

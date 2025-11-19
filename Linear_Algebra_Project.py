@@ -46,7 +46,13 @@ class Matrix:
              array.setRow()
         
     def print(array):
-        print(array.A)
+        for i in range(array.row):
+            for j in range(array.col):
+                if(j==2):
+                    print("[",array.A[i][j],"] ",end="")
+                else:
+                    print("[",array.A[i][j],"], ",end="")
+            print()
 
     def inverse(array):
          try:
@@ -225,13 +231,19 @@ class API:
 
         self.mat1 = Matrix(3,3,[[4,2,2],[6,5,1],[7,3,8]])
         self.mat2 = Matrix(3,3,[[1,2,3],[4,5,6],[7,8,9]])
+        self.mat3 = Matrix(3,3,[[7,5,2],[4,8,6],[8,1,1]])
 
-    def print(self):
+    def print(self,mat):
         sys.stdout = self.buffer
         self.buffer.truncate(0)
         self.buffer.seek(0)
-
-        self.mat1.print()
+        match mat:
+            case 'A':
+                self.mat1.print()
+            case 'B':
+                self.mat2.print()
+            case 'C':
+                self.mat3.print()
 
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
