@@ -1,6 +1,9 @@
 import numpy as np
 import sympy as sp
 import webview
+import io
+import sys
+import os
 
 class Matrix:
     def __init__(array,row=1,col=1,A=[]):
@@ -165,6 +168,8 @@ class Matrix:
              print("Couldn't Verifiy this Matrix")
              return None
 
+#____ODE part____
+
 def solve_first_order(eq_str):
     x = sp.symbols('x')
     y = sp.Function('y')
@@ -214,12 +219,39 @@ def ODE():
 
 #End of project code here.
 
-mat1 = Matrix(3,3,[[1,2,3],[4,5,6],[7,8,9]])
-
 class API:
-    def say_hello(self):
-        print("Hello from JavaScript!")
+    def __init__(self):
+        self.buffer = io.StringIO()
 
+        self.mat1 = Matrix(3,3,[[4,2,2],[6,5,1],[7,3,8]])
+        self.mat2 = Matrix(3,3,[[1,2,3],[4,5,6],[7,8,9]])
+
+    def print(self):
+        sys.stdout = self.buffer
+        self.buffer.truncate(0)
+        self.buffer.seek(0)
+
+        self.mat1.print()
+
+        sys.stdout = sys.__stdout__
+        return self.buffer.getvalue()
+
+
+    def send(self, user_input):
+        # Capture print output
+        sys.stdout = self.buffer
+        self.buffer.truncate(0)
+        self.buffer.seek(0)
+
+        # Your logic here
+        print(f"You entered: {user_input}")
+
+        # Restore real stdout
+        sys.stdout = sys.__stdout__
+
+        return self.buffer.getvalue()
+
+html_path = os.path.abspath("index.html")
 api = API()
-window = webview.create_window('My App', 'index.html', js_api=api)
+window = webview.create_window("Python GUI Console", html_path, js_api=api)
 webview.start()

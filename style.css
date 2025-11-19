@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+    background: #f2f2f2;
+}
+
+#output {
+    background: #111;
+    color: #0f0;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+input {
+    width: 80%;
+    padding: 5px;
+}
+
+button {
+    padding: 6px 12px;
+    margin-left: 5px;
+}
