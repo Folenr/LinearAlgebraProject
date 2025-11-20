@@ -2,16 +2,43 @@ body{
     padding: 10px;
     margin: 30px;
 }
-.MatHead{
+.Matrises{
     display: flex;
+    justify-content: space-between;
+    font-family: "Ubuntu";
 }
-
 .Matrix{
     display: flex;
     flex-direction: column;
 }
 
-.Matrises{
+.MatHead{
     display: flex;
-    justify-content: space-between;
+}
+
+.headTitle{
+    padding: 15px;
+    background-color: aquamarine;
+}
+
+.headButton{
+    background-color: azure;
+    border: 0px;
+    font-size: 35px;
+    width: 40;
+    height: 40px;
+    padding: 15px;
+}
+
+.array{
+    background-color: beige;
+    font-size: 25px;
+}
+#output {
+    background: #111;
+    color: #0f0;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+    border-radius: 5px;
 }

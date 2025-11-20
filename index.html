@@ -1,37 +1,86 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
     <title>PyProject</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="Matrises">
-    <div class="">
-    <div class="MatHead">
-    <h2>A</h2>
-    <button onclick="print('A')">show Matrix</button>
-    </div>
-    <p id="A"></p>
+
+        <div class="Matrix">
+            <div class="MatHead">
+                <h2 class="headTitle">A</h2>
+                <button onclick="print('A','Ab')" class="headButton" id="Ab">►</button>
+            </div>
+            <p id="A" class="array"></p>
+        </div>
+
+        <div class="Matrix">
+            <div class="MatHead">
+                <h2 class="headTitle">B</h2>
+                <button onclick="print('B','Bb')" class="headButton" id="Bb">►</button>
+            </div>
+            <p id="B" class="array"></p>
+        </div>
+
+        <div class="Matrix">
+            <div class="MatHead">
+                <h2 class="headTitle">C</h2>
+                <button onclick="print('C','Cb')" class="headButton" id="Cb">►</button>
+            </div>
+            <p id="C" class="array"></p>
+        </div>
+
     </div>
 
-    <div class="">
-    <div class="MatHead">
-    <h2>B</h2>
-    <button onclick="print('B')">show Matrix</button>
-    </div>
-    <p id="B"></p>
+    <div>
+        <select onchange="select(this.value)">
+            <option></option>
+            <option value="find">find</option> 
+            <option value="set">set</option>
+        </select>
+        <select id="find" onchange="MatrixSelect(this.value)">
+            <option></option>
+            <option value="oneMat" id="ref">ref</option>
+            <option value="oneMat" id="rref">rref</option>
+            <option value="oneMat" id="det">det</option>
+            <option value="oneMat" id="inverse">inverse</option>
+            <option value="twoMat" id="cramer">cramer</option>
+            <option value="oneMat" id="linDep">linDep</option>
+            <option value="oneMat" id="basisDimension">basisDimension</option>
+            <option value="oneMat" id="colSpace">colSpace</option>
+            <option value="oneMat" id="rowSpace">rowSpace</option>
+            <option value="oneMat" id="eigen">eigen</option>
+            <option value="oneMat" id="diag">diag</option>
+            <option value="oneMat" id="diagVerify">diagVerify</option>
+
+        </select>
+        <select id="oneMat">
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <select id="twoMat">
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <button onclick="submit()">submit</button>
     </div>
 
-    <div class="">
-    <div class="MatHead">
-    <h2>C</h2>
-    <button onclick="print('C')">show Matrix</button>
-    </div>
-    <p id="C"></p>
-    </div>
-
-    </div>
+    <h2>Output</h2>
+    <div id="output"></div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -49,10 +49,9 @@ class Matrix:
         for i in range(array.row):
             for j in range(array.col):
                 if(j==2):
-                    print("[",array.A[i][j],"] ",end="")
+                    print("[",array.A[i][j],"] ")
                 else:
                     print("[",array.A[i][j],"], ",end="")
-            print()
 
     def inverse(array):
          try:
@@ -169,10 +168,10 @@ class Matrix:
     def diagVerify(array):
          try:
                P, D = array.diag()
-               return P * D * P.inv()
+               return (P * D * P.inv())
          except:
              print("Couldn't Verifiy this Matrix")
-             return None
+             return "Couldn't Verifiy this Matrix"
 
 #____ODE part____
 
@@ -247,22 +246,56 @@ class API:
 
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
-
-
-    def send(self, user_input):
-        # Capture print output
+    
+    def findMat1(self,mat,fun):
         sys.stdout = self.buffer
         self.buffer.truncate(0)
         self.buffer.seek(0)
+        m1 = Matrix()
+        match mat:
+            case 'A':
+                m1.row = self.mat1.row
+                m1.col = self.mat1.col
+                m1.A = np.copy(self.mat1.A)
+            case 'B':
+                m1.row = self.mat2.row
+                m1.col = self.mat2.col
+                m1.A = np.copy(self.mat2.A)
+            case 'C':
+                m1.row = self.mat3.row
+                m1.col = self.mat3.col
+                m1.A = np.copy(self.mat3.A)
+        
+        match fun:
+            case "det":
+                print(m1.det())
+            case "linDep":
+                print(m1.linDep())
+            case "ref":
+                m1.A= np.asarray(m1.ref())
+                m1.print()
+            case "rref":
+                print(m1.rref())
+            case "inverse":
+                m1.A= np.asarray(m1.inverse())
+                m1.print()
+            case "diagVerify":
+                print(m1.diagVerify())
+            case "diag":
+                print(m1.diag())
+            case "eigen":
+                print(m1.eigen())
+            case "rowSpace":
+                print(m1.rowSpace())
+            case "colSpace":
+                print(m1.colSpace())
+            case "basisDimension":
+                print(m1.basisDimension())
+            
 
-        # Your logic here
-        print(f"You entered: {user_input}")
-
-        # Restore real stdout
         sys.stdout = sys.__stdout__
-
         return self.buffer.getvalue()
-
+    
 html_path = os.path.abspath("index.html")
 api = API()
 window = webview.create_window("Python GUI Console", html_path, js_api=api)
