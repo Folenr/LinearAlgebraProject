@@ -39,12 +39,26 @@ function MatrixSelect(value){
 }
 
 function submit(){
+    var id = document.getElementById("find").options[document.getElementById("find").selectedIndex].id;
+    var mat1= document.getElementById("oneMat").value;
+    var mat2= document.getElementById("twoMat").value;
     if(document.getElementById("find").style.visibility=='visible'){
         if(document.getElementById("twoMat").style.visibility=='visible'){
+            if(id == "cramer"){
+                pywebview.api.findMat2(mat1,mat2,'cramer').then(result => {
+                        result = result.replace(/\n/g, "<br>");
+                        document.getElementById("output").innerHTML += result + "<br>";
+                    });
+            }else if(id == "algebra"){
+                pywebview.api.findMat2(mat1,mat2,'algebra').then(result => {
+                        result = result.replace(/\n/g, "<br>");
+                        document.getElementById("output").innerHTML += result + "<br>";
+                    });
+            }else{
+                document.getElementById("output").innerHTML += "no function was called" + "<br>";
+            }
 
         }else{
-            var mat1= document.getElementById("oneMat").value;
-            var id = document.getElementById("find").options[document.getElementById("find").selectedIndex].id;
             switch(id){
                 case 'det':
                     pywebview.api.findMat1(mat1,'det').then(result => {
@@ -112,6 +126,8 @@ function submit(){
                         document.getElementById("output").innerHTML += result + "<br>";
                     });
                     break;
+                default:
+                    document.getElementById("output").innerHTML += "no function was called" + "<br>";
                 
 
             }

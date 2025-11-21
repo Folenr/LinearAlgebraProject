@@ -6,9 +6,9 @@ import sys
 import os
 
 class Matrix:
-    def __init__(array,row=1,col=1,A=[]):
-        array.row = row
+    def __init__(array,col=1,row=1,A=[]):
         array.col = col
+        array.row = row
         if(A==[]):
           array.A = np.empty(shape=(row,col) ,dtype=float)
         else:
@@ -110,7 +110,7 @@ class Matrix:
                   dn = n.det()
                   print(dn/d)
          except:
-             print("Your Matrix isn't a valid")
+             print("Your Matrix isn't valid")
              return None
      
     def linDep(array):
@@ -265,7 +265,6 @@ class API:
                 m1.row = self.mat3.row
                 m1.col = self.mat3.col
                 m1.A = np.copy(self.mat3.A)
-        
         match fun:
             case "det":
                 print(m1.det())
@@ -291,7 +290,49 @@ class API:
                 print(m1.colSpace())
             case "basisDimension":
                 print(m1.basisDimension())
-            
+        
+        sys.stdout = sys.__stdout__
+        return self.buffer.getvalue()
+        
+    def findMat2(self,matA,matB,fun):
+        sys.stdout = self.buffer
+        self.buffer.truncate(0)
+        self.buffer.seek(0)
+        m1 = Matrix()
+        m2 = Matrix()
+        print(matA,matB,fun)
+        match matA:
+            case 'A':
+                m1.row = self.mat1.row
+                m1.col = self.mat1.col
+                m1.A = np.copy(self.mat1.A)
+            case 'B':
+                m1.row = self.mat2.row
+                m1.col = self.mat2.col
+                m1.A = np.copy(self.mat2.A)
+            case 'C':
+                m1.row = self.mat3.row
+                m1.col = self.mat3.col
+                m1.A = np.copy(self.mat3.A)
+                
+        match matB:
+            case 'A':
+                m2.row = self.mat1.row
+                m2.col = self.mat1.col
+                m2.A = np.copy(self.mat1.A)
+            case 'B':
+                m2.row = self.mat2.row
+                m2.col = self.mat2.col
+                m2.A = np.copy(self.mat2.A)
+            case 'C':
+                m2.row = self.mat3.row
+                m2.col = self.mat3.col
+                m2.A = np.copy(self.mat3.A)
+    
+        if(fun == "cramer"):
+            Matrix.cramer(m1,m2)
+        elif(fun == "algebra"):
+            print(Matrix.algebra(m1,m2,'+'))
 
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
