@@ -21,9 +21,9 @@ class Matrix:
         return array.A
         
     def print(array):
-        for i in range(array.row):
-            for j in range(array.col):
-                if(j==array.col-1):
+        for i in range(array.col):
+            for j in range(array.row):
+                if(j==array.row-1):
                     print("[",array.A[i][j],"] ")
                 else:
                     print("[",array.A[i][j],"], ",end="")
@@ -74,19 +74,15 @@ class Matrix:
                   return None
      
     def cramer(A,B):
-         try:
              d = A.det()
              n = Matrix()
              n.row = A.row
              n.col = A.col
              for i in range(A.col):
                   n.A = np.copy(A.A)
-                  n.A[:,i] = B.A
+                  n.A[:, i] = B.A.flatten()
                   dn = n.det()
                   print(dn/d)
-         except:
-             print("Your Matrix isn't valid")
-             return None
      
     def linDep(array):
         try:
@@ -301,8 +297,31 @@ class API:
                 self.mat3.row = self.tempMat.row
                 self.mat3.col = self.tempMat.col
                 self.mat3.A = np.copy(self.tempMat.A)
-        return "Matrix set successfully"
-
+        return "Matrix set successfully\n"
+    
+    def setMat(self,matA,fun,matB,matC='A',opr='+'):
+        m1 = Matrix()
+        m2 = Matrix()
+        m3 = Matrix()
+        api.matSet(m2,matB)
+        api.matSet(m3,matC)
+        match matA:
+            case 'A':
+                m1 =self.mat1
+            case 'B':
+                m1 = self.mat2
+            case 'C':
+                m1 = self.mat3
+        match fun:
+            case "ref":
+                m1.A = np.asarray(m2.ref())
+            case "rref":
+                m1.A,n = np.asarray(m2.ref())
+            case "inverse":
+                m1.A = np.asarray(m2.inverse())
+            case "algebra":
+                m1.A = Matrix.algebra(m2,m3,opr)
+        return "opration has been done\n"
     
 html_path = os.path.abspath("index.html")
 api = API()

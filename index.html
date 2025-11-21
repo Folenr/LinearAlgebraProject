@@ -43,7 +43,7 @@
     <div>
         <select onchange="select(this.value)">
             <option></option>
-            <option value="find">find</option> 
+            <option value="find">find</option>
             <option value="set">set</option>
         </select>
         <select id="find" onchange="funSelect(this.value),opration()">
@@ -63,25 +63,35 @@
             <option value="oneMat" id="diagVerify">diagVerify</option>
 
         </select>
+        
+        <select id="setMat">
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
 
         <select id="set" onchange="setSelect(this.value)">
             <option></option>
             <option value="set">Set Matrix elements</option>
-            <option value="fun">Matrix to</option>
+            <option value="setFun">Matrix to</option>
         </select>
-        
+
+        <select id="setFun" onchange="setFunSelect(this.value)">
+            <option></option>
+            <option value="oneMat" id="ref">ref</option>
+            <option value="oneMat" id="rref">rref</option>
+            <option value="oneMat" id="inverse">inverse</option>
+            <option value="twoMat" id="algebra">algebra</option>
+        </select>
+
         <select id="oneMat">
             <option></option>
             <option>A</option>
             <option>B</option>
             <option>C</option>
         </select>
-        <select id="twoMat">
-            <option></option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-        </select>
+
         <select id="opr">
             <option></option>
             <option>+</option>
@@ -90,8 +100,17 @@
             <option>*</option>
             <option>.</option>
         </select>
+
+        <select id="twoMat">
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+
         <button onclick="submit()">submit</button>
     </div>
+
     <input id="rows" type="number" class="setInput" placeholder="rows">
     <input id="cols" type="number" class="setInput" placeholder="columns">
     <textarea id="matrixInput" class="setInput" placeholder="Enter the Matrix exp: 1 2 3 4"></textarea>

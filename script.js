@@ -10,27 +10,41 @@ function print(id,bId) {
          document.getElementById(bId).innerHTML = "►";
 }
 }
-document.getElementById("find").style.display = "none";
-document.getElementById("set").style.display = "none";
 
 function select(value){
+    document.getElementById("find").style.display = "none";
+    document.getElementById("set").style.display = "none";
+    document.getElementById("oneMat").style.display = "none";
+    document.getElementById("twoMat").style.display = "none";
+    document.getElementById("rows").style.display = "none";
+    document.getElementById("cols").style.display = "none";
+    document.getElementById("matrixInput").style.display = "none";
+    document.getElementById("opr").style.display = "none";
     if(value=="find"){
         document.getElementById("find").style.display = "inline";
         document.getElementById("set").style.display = "none";
+        document.getElementById("setMat").style.display = "none";
     }else if(value == "set"){
         document.getElementById("find").style.display = "none";
         document.getElementById("set").style.display = "inline";
+        document.getElementById("setMat").style.display = "inline";
     }else{
         document.getElementById("find").style.display = "none";
         document.getElementById("set").style.display = "none";
+        document.getElementById("setMat").style.display = "none";
     }
 }
 
+document.getElementById("find").style.display = "none";
+document.getElementById("set").style.display = "none";
+document.getElementById("setMat").style.display = "none";
 document.getElementById("oneMat").style.display = "none";
 document.getElementById("twoMat").style.display = "none";
 document.getElementById("rows").style.display = "none";
 document.getElementById("cols").style.display = "none";
 document.getElementById("matrixInput").style.display = "none";
+document.getElementById("opr").style.display = "none";
+document.getElementById("setFun").style.display = "none";
 
 function funSelect(value){
     document.getElementById("rows").style.display = "none";
@@ -49,14 +63,15 @@ function funSelect(value){
 }
 function setSelect(value){
     if(value == "set"){
-        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("oneMat").style.display = "none";
         document.getElementById("rows").style.display = "inline";
         document.getElementById("cols").style.display = "inline";
         document.getElementById("matrixInput").style.display = "inline";
         document.getElementById("twoMat").style.display = "none";
-    }else if(value == "fun"){
-        document.getElementById("oneMat").style.display = "inline";
-        document.getElementById("twoMat").style.display = "inline";
+    }else if(value == "setFun"){
+        document.getElementById("setFun").style.display = "inline";
+        document.getElementById("oneMat").style.display = "none";
+        document.getElementById("twoMat").style.display = "none";
         document.getElementById("rows").style.display = "none";
         document.getElementById("cols").style.display = "none";
         document.getElementById("matrixInput").style.display = "none";
@@ -69,7 +84,18 @@ function setSelect(value){
     }
 }
 
-document.getElementById("opr").style.display = "none";
+function setFunSelect(value){
+    if(value == "twoMat"){
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("opr").style.display = "inline";
+        document.getElementById("twoMat").style.display = "inline";
+    }else{
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("opr").style.display = "none";
+        document.getElementById("twoMat").style.display = "none";
+    }
+}
+
 function opration(){
     if(document.getElementById("find").options[document.getElementById("find").selectedIndex].id=="algebra"){
         document.getElementById("opr").style.display = "inline";
@@ -174,8 +200,37 @@ function submit(){
             }
         }
     } else if(document.getElementById("set").style.display == "inline"){
-        if(document.getElementById("set").value == "oneMat"){
-            setMat(mat1)
+        if(document.getElementById("set").value == "set"){
+            setMat(document.getElementById("setMat").value)
+        }else if(document.getElementById("set").value == "setFun"){
+            var id = document.getElementById("setFun").options[document.getElementById("setFun").selectedIndex].id;
+            var mat = document.getElementById("setMat").value;
+            switch(id){
+                case 'ref':
+                    pywebview.api.setMat(mat,'ref',mat1).then(response => {
+                    response = response.replace(/\n/g, "<br>");
+                    document.getElementById("output").innerHTML += response;
+                    });;
+                    break;
+                case 'rref':
+                    pywebview.api.setMat(mat,'rref',mat1).then(response => {
+                    response = response.replace(/\n/g, "<br>");
+                    document.getElementById("output").innerHTML += response;
+                    });;
+                    break;
+                case 'inverse':
+                    pywebview.api.setMat(mat,'inverse',mat1).then(response => {
+                    response = response.replace(/\n/g, "<br>");
+                    document.getElementById("output").innerHTML += response;
+                    });;
+                    break;
+                case 'algebra':
+                    pywebview.api.setMat(mat,'algebra',mat1,mat2,opr).then(response => {
+                    response = response.replace(/\n/g, "<br>");
+                    document.getElementById("output").innerHTML += response;
+                    });;
+                    break;
+                }
         }
     }
 }
@@ -189,6 +244,6 @@ function setMat(mat1) {
     );
     window.pywebview.api.createMatrix(col, row, values,mat1).then(response => {
         response = response.replace(/\n/g, "<br>");
-        document.getElementById("output").innerHTML = response;
+        document.getElementById("output").innerHTML += response;
     });
 }
