@@ -10,47 +10,88 @@ function print(id,bId) {
          document.getElementById(bId).innerHTML = "►";
 }
 }
-document.getElementById("find").style.visibility='hidden';
+document.getElementById("find").style.display = "none";
+document.getElementById("set").style.display = "none";
 
 function select(value){
     if(value=="find"){
-        document.getElementById("find").style.visibility='visible';
+        document.getElementById("find").style.display = "inline";
+        document.getElementById("set").style.display = "none";
     }else if(value == "set"){
-        document.getElementById("find").style.visibility='hidden';
+        document.getElementById("find").style.display = "none";
+        document.getElementById("set").style.display = "inline";
     }else{
-        document.getElementById("find").style.visibility='hidden';
+        document.getElementById("find").style.display = "none";
+        document.getElementById("set").style.display = "none";
     }
 }
 
-document.getElementById("oneMat").style.visibility='hidden';
-document.getElementById("twoMat").style.visibility='hidden';
+document.getElementById("oneMat").style.display = "none";
+document.getElementById("twoMat").style.display = "none";
+document.getElementById("rows").style.display = "none";
+document.getElementById("cols").style.display = "none";
+document.getElementById("matrixInput").style.display = "none";
 
-function MatrixSelect(value){
+function funSelect(value){
+    document.getElementById("rows").style.display = "none";
+    document.getElementById("cols").style.display = "none";
+    document.getElementById("matrixInput").style.display = "none";
     if(value=="oneMat"){
-        document.getElementById("oneMat").style.visibility='visible';
-        document.getElementById("twoMat").style.visibility='hidden';
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("twoMat").style.display = "none";
     }else if(value == "twoMat"){
-        document.getElementById("oneMat").style.visibility='visible';
-        document.getElementById("twoMat").style.visibility='visible';
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("twoMat").style.display = "inline";
     }else{
-        document.getElementById("oneMat").style.visibility='hidden';
-        document.getElementById("twoMat").style.visibility='hidden';
+        document.getElementById("oneMat").style.display = "none";
+        document.getElementById("twoMat").style.display = "none";
     }
+}
+function setSelect(value){
+    if(value == "set"){
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("rows").style.display = "inline";
+        document.getElementById("cols").style.display = "inline";
+        document.getElementById("matrixInput").style.display = "inline";
+        document.getElementById("twoMat").style.display = "none";
+    }else if(value == "fun"){
+        document.getElementById("oneMat").style.display = "inline";
+        document.getElementById("twoMat").style.display = "inline";
+        document.getElementById("rows").style.display = "none";
+        document.getElementById("cols").style.display = "none";
+        document.getElementById("matrixInput").style.display = "none";
+    }else{
+        document.getElementById("oneMat").style.display = "none";
+        document.getElementById("twoMat").style.display = "none";
+        document.getElementById("rows").style.display = "none";
+        document.getElementById("cols").style.display = "none";
+        document.getElementById("matrixInput").style.display = "none";
+    }
+}
+
+document.getElementById("opr").style.display = "none";
+function opration(){
+    if(document.getElementById("find").options[document.getElementById("find").selectedIndex].id=="algebra"){
+        document.getElementById("opr").style.display = "inline";
+    }else{
+        document.getElementById("opr").style.display = "none";
+}
 }
 
 function submit(){
     var id = document.getElementById("find").options[document.getElementById("find").selectedIndex].id;
-    var mat1= document.getElementById("oneMat").value;
-    var mat2= document.getElementById("twoMat").value;
-    if(document.getElementById("find").style.visibility=='visible'){
-        if(document.getElementById("twoMat").style.visibility=='visible'){
+    var mat1 = document.getElementById("oneMat").value;
+    var mat2 = document.getElementById("twoMat").value;
+    var opr = document.getElementById("opr").value;
+    if(document.getElementById("find").style.display == "inline"){
+        if(document.getElementById("twoMat").style.display == "inline"){
             if(id == "cramer"){
-                pywebview.api.findMat2(mat1,mat2,'cramer').then(result => {
+                pywebview.api.findMat2(mat1,mat2,'cramer',opr).then(result => {
                         result = result.replace(/\n/g, "<br>");
                         document.getElementById("output").innerHTML += result + "<br>";
                     });
             }else if(id == "algebra"){
-                pywebview.api.findMat2(mat1,mat2,'algebra').then(result => {
+                pywebview.api.findMat2(mat1,mat2,'algebra',opr).then(result => {
                         result = result.replace(/\n/g, "<br>");
                         document.getElementById("output").innerHTML += result + "<br>";
                     });
@@ -132,5 +173,22 @@ function submit(){
 
             }
         }
-    } 
+    } else if(document.getElementById("set").style.display == "inline"){
+        if(document.getElementById("set").value == "oneMat"){
+            setMat(mat1)
+        }
+    }
+}
+
+function setMat(mat1) {
+    let row = parseInt(document.getElementById("rows").value);
+    let col = parseInt(document.getElementById("cols").value);
+    let text = document.getElementById("matrixInput").value.trim();
+    let values = text.split("\n").map(line =>
+        line.split(" ").map(Number)
+    );
+    window.pywebview.api.createMatrix(col, row, values,mat1).then(response => {
+        response = response.replace(/\n/g, "<br>");
+        document.getElementById("output").innerHTML = response;
+    });
 }

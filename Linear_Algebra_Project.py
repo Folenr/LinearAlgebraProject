@@ -14,41 +14,16 @@ class Matrix:
         else:
           array.A = A
 
-    def set(array):
-        array.setCol()
-        array.setRow()
-        array.A = np.empty(shape=(array.row, array.col), dtype=float)
-
-        for i in range(array.row):
-            for j in range(array.col):
-                array.setElement(i,j)
-     
-    def setElement(array,i,j):
-        try:
-             array.A[i,j] = float(input())
-        except:
-             print("Envalid Number")
-             array.setElement(i,j)
-
-
-    def setCol(array):
-        try:
-             array.col = int(input("columns: "))
-        except:
-             print("Envalid Number")
-             array.setCol()
-
-    def setRow(array):
-        try:
-             array.row = int(input("row: "))
-        except:
-             print("Envalid Number")
-             array.setRow()
+    def setMatrix(array, col, row, values):
+        array.col = col
+        array.row = row
+        array.A = np.array(values, dtype=float)
+        return array.A
         
     def print(array):
         for i in range(array.row):
             for j in range(array.col):
-                if(j==2):
+                if(j==array.col-1):
                     print("[",array.A[i][j],"] ")
                 else:
                     print("[",array.A[i][j],"], ",end="")
@@ -227,6 +202,7 @@ def ODE():
 class API:
     def __init__(self):
         self.buffer = io.StringIO()
+        self.tempMat = Matrix()
 
         self.mat1 = Matrix(3,3,[[4,2,2],[6,5,1],[7,3,8]])
         self.mat2 = Matrix(3,3,[[1,2,3],[4,5,6],[7,8,9]])
@@ -236,22 +212,14 @@ class API:
         sys.stdout = self.buffer
         self.buffer.truncate(0)
         self.buffer.seek(0)
-        match mat:
-            case 'A':
-                self.mat1.print()
-            case 'B':
-                self.mat2.print()
-            case 'C':
-                self.mat3.print()
+        m1 = Matrix()
+        api.matSet(m1,mat)
+        m1.print()
 
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
     
-    def findMat1(self,mat,fun):
-        sys.stdout = self.buffer
-        self.buffer.truncate(0)
-        self.buffer.seek(0)
-        m1 = Matrix()
+    def matSet(self,m1,mat):
         match mat:
             case 'A':
                 m1.row = self.mat1.row
@@ -265,6 +233,13 @@ class API:
                 m1.row = self.mat3.row
                 m1.col = self.mat3.col
                 m1.A = np.copy(self.mat3.A)
+    
+    def findMat1(self,mat,fun):
+        sys.stdout = self.buffer
+        self.buffer.truncate(0)
+        self.buffer.seek(0)
+        m1 = Matrix()
+        api.matSet(m1,mat)
         match fun:
             case "det":
                 print(m1.det())
@@ -294,50 +269,42 @@ class API:
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
         
-    def findMat2(self,matA,matB,fun):
+    def findMat2(self,matA,matB,fun,opr):
         sys.stdout = self.buffer
         self.buffer.truncate(0)
         self.buffer.seek(0)
         m1 = Matrix()
         m2 = Matrix()
-        print(matA,matB,fun)
-        match matA:
-            case 'A':
-                m1.row = self.mat1.row
-                m1.col = self.mat1.col
-                m1.A = np.copy(self.mat1.A)
-            case 'B':
-                m1.row = self.mat2.row
-                m1.col = self.mat2.col
-                m1.A = np.copy(self.mat2.A)
-            case 'C':
-                m1.row = self.mat3.row
-                m1.col = self.mat3.col
-                m1.A = np.copy(self.mat3.A)
-                
-        match matB:
-            case 'A':
-                m2.row = self.mat1.row
-                m2.col = self.mat1.col
-                m2.A = np.copy(self.mat1.A)
-            case 'B':
-                m2.row = self.mat2.row
-                m2.col = self.mat2.col
-                m2.A = np.copy(self.mat2.A)
-            case 'C':
-                m2.row = self.mat3.row
-                m2.col = self.mat3.col
-                m2.A = np.copy(self.mat3.A)
+        api.matSet(m1,matA)
+        api.matSet(m2,matB)
     
         if(fun == "cramer"):
             Matrix.cramer(m1,m2)
         elif(fun == "algebra"):
-            print(Matrix.algebra(m1,m2,'+'))
+            print(Matrix.algebra(m1,m2,opr))
 
         sys.stdout = sys.__stdout__
         return self.buffer.getvalue()
     
+    def createMatrix(self, col, row, values, mat):
+        self.tempMat.setMatrix(col, row, values)
+        match mat:
+            case 'A':
+                self.mat1.row = self.tempMat.row
+                self.mat1.col = self.tempMat.col
+                self.mat1.A = np.copy(self.tempMat.A)
+            case 'B':
+                self.mat2.row = self.tempMat.row
+                self.mat2.col = self.tempMat.col
+                self.mat2.A = np.copy(self.tempMat.A)
+            case 'C':
+                self.mat3.row = self.tempMat.row
+                self.mat3.col = self.tempMat.col
+                self.mat3.A = np.copy(self.tempMat.A)
+        return "Matrix set successfully"
+
+    
 html_path = os.path.abspath("index.html")
 api = API()
-window = webview.create_window("Python GUI Console", html_path, js_api=api)
+window = webview.create_window("Python", html_path, js_api=api)
 webview.start()
