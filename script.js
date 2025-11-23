@@ -1,3 +1,21 @@
+function hideMatrixPage(){
+    document.getElementById("MatrixPage").style.display = "none";
+    document.getElementById("ODE").style.display = "block";
+}
+function showMatrixPage(){
+    document.getElementById("MatrixPage").style.display = "block";
+    document.getElementById("ODE").style.display = "none";
+}
+document.getElementById("ODE").style.display = "none";
+
+function runODE() {
+        pywebview.api.odeFunction(document.getElementById("input").value).then(result => {
+            result = result.replace(/\n/g, "<br>");
+            document.getElementById("output2").innerHTML += "> " + result + "<br>";
+            document.getElementById("input").value = "";
+        });
+}
+
 function print(id,bId) {
     if ( document.getElementById(id).innerHTML === null ||  document.getElementById(id).innerHTML.trim().length === 0) {
     pywebview.api.print(id).then(result => {
@@ -10,6 +28,14 @@ function print(id,bId) {
          document.getElementById(bId).innerHTML = "►";
 }
 }
+function rePrint(id,bId){
+    if(document.getElementById(bId).innerHTML == "▼"){
+        pywebview.api.print(id).then(result => {
+        result = result.replace(/\n/g, "<br>");
+        document.getElementById(id).innerHTML = result;
+    });
+    }
+}
 
 function select(value){
     document.getElementById("find").style.display = "none";
@@ -20,14 +46,18 @@ function select(value){
     document.getElementById("cols").style.display = "none";
     document.getElementById("matrixInput").style.display = "none";
     document.getElementById("opr").style.display = "none";
+    document.getElementById("setFun").style.display = "none";
     if(value=="find"){
         document.getElementById("find").style.display = "inline";
+        document.querySelector('#find').value='';
         document.getElementById("set").style.display = "none";
         document.getElementById("setMat").style.display = "none";
     }else if(value == "set"){
         document.getElementById("find").style.display = "none";
         document.getElementById("set").style.display = "inline";
+        document.querySelector('#set').value='';
         document.getElementById("setMat").style.display = "inline";
+        document.querySelector('#setMat').value='';
     }else{
         document.getElementById("find").style.display = "none";
         document.getElementById("set").style.display = "none";
@@ -52,10 +82,13 @@ function funSelect(value){
     document.getElementById("matrixInput").style.display = "none";
     if(value=="oneMat"){
         document.getElementById("oneMat").style.display = "inline";
+        document.querySelector('#oneMat').value='';
         document.getElementById("twoMat").style.display = "none";
     }else if(value == "twoMat"){
         document.getElementById("oneMat").style.display = "inline";
         document.getElementById("twoMat").style.display = "inline";
+        document.querySelector('#oneMat').value='';
+        document.querySelector('#twoMat').value='';
     }else{
         document.getElementById("oneMat").style.display = "none";
         document.getElementById("twoMat").style.display = "none";
@@ -68,6 +101,8 @@ function setSelect(value){
         document.getElementById("cols").style.display = "inline";
         document.getElementById("matrixInput").style.display = "inline";
         document.getElementById("twoMat").style.display = "none";
+        document.getElementById("setFun").style.display = "none";
+        document.getElementById("opr").style.display = "none";
     }else if(value == "setFun"){
         document.getElementById("setFun").style.display = "inline";
         document.getElementById("oneMat").style.display = "none";
@@ -75,12 +110,16 @@ function setSelect(value){
         document.getElementById("rows").style.display = "none";
         document.getElementById("cols").style.display = "none";
         document.getElementById("matrixInput").style.display = "none";
+        document.getElementById("opr").style.display = "none";
+        document.querySelector('#setFun').value='';
     }else{
         document.getElementById("oneMat").style.display = "none";
         document.getElementById("twoMat").style.display = "none";
         document.getElementById("rows").style.display = "none";
         document.getElementById("cols").style.display = "none";
         document.getElementById("matrixInput").style.display = "none";
+        document.getElementById("setFun").style.display = "none";
+        document.getElementById("opr").style.display = "none";
     }
 }
 
@@ -89,16 +128,21 @@ function setFunSelect(value){
         document.getElementById("oneMat").style.display = "inline";
         document.getElementById("opr").style.display = "inline";
         document.getElementById("twoMat").style.display = "inline";
+        document.querySelector('#oneMat').value='';
+        document.querySelector('#opr').value='';
+        document.querySelector('#twoMat').value='';
     }else{
         document.getElementById("oneMat").style.display = "inline";
         document.getElementById("opr").style.display = "none";
         document.getElementById("twoMat").style.display = "none";
+        document.querySelector('#oneMat').value='';
     }
 }
 
 function opration(){
     if(document.getElementById("find").options[document.getElementById("find").selectedIndex].id=="algebra"){
         document.getElementById("opr").style.display = "inline";
+        document.querySelector('#opr').value='';
     }else{
         document.getElementById("opr").style.display = "none";
 }
@@ -232,6 +276,9 @@ function submit(){
                     break;
                 }
         }
+        rePrint('A','Ab')
+        rePrint('B','Bb')
+        rePrint('C','Cb')
     }
 }
 

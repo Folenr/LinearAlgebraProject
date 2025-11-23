@@ -15,46 +15,54 @@ class Matrix:
           array.A = A
 
     def setMatrix(array, col, row, values):
-        array.col = col
-        array.row = row
-        array.A = np.array(values, dtype=float)
-        return array.A
+        try:
+            array.col = col
+            array.row = row
+            array.A = np.array(values, dtype=float)
+            return array.A
+        except:
+            print("Your Matrix isn't Valid")
+            return None
         
     def print(array):
-        for i in range(array.col):
-            for j in range(array.row):
-                if(j==array.row-1):
-                    print("[",array.A[i][j],"] ")
-                else:
-                    print("[",array.A[i][j],"], ",end="")
+        try:
+            for i in range(array.col):
+                for j in range(array.row):
+                    if(j==array.row-1):
+                        print("[",array.A[i][j],"] ")
+                    else:
+                        print("[",array.A[i][j],"], ",end="")
+        except:
+            print("Your Matrix isn't Valid")
+            return None
 
     def inverse(array):
          try:
-             return np.linalg.inv(array.A)
+            return np.linalg.inv(array.A)
          except:
-             print("Your Matrix isn't Valid")
-             return None  
+            print("Your Matrix isn't Valid")
+            return None  
     
     def ref(array):
          try:
-             return sp.Matrix(array.A).echelon_form()
+            return sp.Matrix(array.A).echelon_form()
          except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
     
     def rref(array):
          try:
-             return sp.Matrix(array.A).rref()
+            return sp.Matrix(array.A).rref()
          except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
     
     def det(array):
          try:
-             return np.linalg.det(array.A)
+            return np.linalg.det(array.A)
          except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
 
     def algebra(A,B,opr):
             try:
@@ -70,79 +78,83 @@ class Matrix:
                        case '.':
                             return np.dot(A.A, B.A)
             except:
-                  print("Your Matrix isn't Valid")
-                  return None
+                print("Your Matrix isn't Valid")
+                return None
      
     def cramer(A,B):
-             d = A.det()
-             n = Matrix()
-             n.row = A.row
-             n.col = A.col
-             for i in range(A.col):
-                  n.A = np.copy(A.A)
-                  n.A[:, i] = B.A.flatten()
-                  dn = n.det()
-                  print(dn/d)
+        try:
+            d = A.det()
+            n = Matrix()
+            n.row = A.row
+            n.col = A.col
+            for i in range(A.col):
+                n.A = np.copy(A.A)
+                n.A[:, i] = B.A.flatten()
+                dn = n.det()
+                print(dn/d)
+        except:
+            print("Your Matrix isn't Valid")
+            return None
      
     def linDep(array):
         try:
-             M = sp.Matrix(array.A)
-             rank = M.rank()
+            M = sp.Matrix(array.A)
+            rank = M.rank()
 
-             if rank == array.col:
-                  return "The set of vectors is Linearly Independent"
-             else:
-                  return "The set of vectors is Linearly Dependent"
+            if rank == array.col:
+                return "The set of vectors is Linearly Independent"
+            else:
+                return "The set of vectors is Linearly Dependent"
         except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
      
     def basisDimension(array):
         try:
-             M = sp.Matrix(array.A)
-             rref_M, pivots = M.rref()
-             basis_vectors = [M.col(i) for i in pivots]
-             dimension = len(pivots)
-             return basis_vectors, dimension
+            M = sp.Matrix(array.A)
+            rref_M, pivots = M.rref()
+            basis_vectors = [M.col(i) for i in pivots]
+            dimension = len(pivots)
+            return basis_vectors, dimension
         except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
 
     def colSpace(array):
         try:
-             return sp.Matrix(array.A).columnspace()
+            return sp.Matrix(array.A).columnspace()
         except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
 
     def rowSpace(array):
         try:
-             return sp.Matrix(array.A).rowspace()
+            return sp.Matrix(array.A).rowspace()
         except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
     
     def eigen(array):
          try:
-             return np.linalg.eig(array.A)
+            return np.linalg.eig(array.A)
          except:
-             print("Your Matrix isn't Valid")
-             return None
+            print("Your Matrix isn't Valid")
+            return None
     
     def diag(array):
          try:
             return sp.Matrix(array.A).diagonalize()
          except:
-             print("Your Matrix isn't Diagonalizable")
-             return None
+            print("Your Matrix isn't Diagonalizable")
+            return None
     
     def diagVerify(array):
          try:
-               P, D = array.diag()
-               return (P * D * P.inv())
+            P, D = array.diag()
+            return (P * D * P.inv())
          except:
-             print("Couldn't Verifiy this Matrix")
-             return "Couldn't Verifiy this Matrix"
+            print("Couldn't Verifiy this Matrix")
+            return "Couldn't Verifiy this Matrix"
 
 #____ODE part____
 
@@ -168,15 +180,7 @@ def solve_second_order(eq_str):
     return sol
 
 
-def ODE():
-    print("=== ODE Solver ===")
-    print("Enter your differential equation using sympy syntax.")
-    print("Examples:")
-    print("  First-order:  y(x).diff(x) + y(x) - x")
-    print("  Second-order:  y(x).diff(x,2) + 3*y(x).diff(x) + 2*y(x)")
-
-    eq_str = input("\nEnter ODE = 0 : ")
-
+def ODE(eq_str):
     # Count derivatives
     order1 = eq_str.count("diff(x)")
     order2 = eq_str.count("diff(x,2)")
@@ -187,11 +191,11 @@ def ODE():
     elif order1 > 0:
         sol = solve_first_order(eq_str)
     else:
-        print("Could not detect differential equation.")
-        return
+        return "Could not detect differential equation."
+        
 
     print("\nSolution:")
-    print(sol)
+    return sol
 
 #End of project code here.
 
@@ -316,12 +320,22 @@ class API:
             case "ref":
                 m1.A = np.asarray(m2.ref())
             case "rref":
-                m1.A,n = np.asarray(m2.ref())
+                m1.A = np.asarray(m2.rref()[0], dtype=float)
             case "inverse":
                 m1.A = np.asarray(m2.inverse())
             case "algebra":
                 m1.A = Matrix.algebra(m2,m3,opr)
         return "opration has been done\n"
+    
+    def odeFunction(self,eq_str):
+        sys.stdout = self.buffer
+        self.buffer.truncate(0)
+        self.buffer.seek(0)
+
+        print(ODE(eq_str))
+
+        sys.stdout = sys.__stdout__
+        return self.buffer.getvalue()
     
 html_path = os.path.abspath("index.html")
 api = API()

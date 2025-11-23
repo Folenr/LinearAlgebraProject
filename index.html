@@ -12,111 +12,131 @@
 </head>
 
 <body>
-    <div class="Matrises">
 
-        <div class="Matrix">
-            <div class="MatHead">
-                <h2 class="headTitle">A</h2>
-                <button onclick="print('A','Ab')" class="headButton" id="Ab">►</button>
-            </div>
-            <p id="A" class="array"></p>
-        </div>
-
-        <div class="Matrix">
-            <div class="MatHead">
-                <h2 class="headTitle">B</h2>
-                <button onclick="print('B','Bb')" class="headButton" id="Bb">►</button>
-            </div>
-            <p id="B" class="array"></p>
-        </div>
-
-        <div class="Matrix">
-            <div class="MatHead">
-                <h2 class="headTitle">C</h2>
-                <button onclick="print('C','Cb')" class="headButton" id="Cb">►</button>
-            </div>
-            <p id="C" class="array"></p>
-        </div>
+    <div class="sidebar">
+        <button class="sidebarButton" onclick="showMatrixPage()">Matrix</button>
+        <button class="sidebarButton" onclick="hideMatrixPage()">ODE</button>
 
     </div>
 
-    <div>
-        <select onchange="select(this.value)">
-            <option></option>
-            <option value="find">find</option>
-            <option value="set">set</option>
-        </select>
-        <select id="find" onchange="funSelect(this.value),opration()">
-            <option></option>
-            <option value="oneMat" id="ref">ref</option>
-            <option value="oneMat" id="rref">rref</option>
-            <option value="oneMat" id="det">det</option>
-            <option value="oneMat" id="inverse">inverse</option>
-            <option value="twoMat" id="cramer">cramer</option>
-            <option value="twoMat" id="algebra">algebra</option>
-            <option value="oneMat" id="linDep">linDep</option>
-            <option value="oneMat" id="basisDimension">basisDimension</option>
-            <option value="oneMat" id="colSpace">colSpace</option>
-            <option value="oneMat" id="rowSpace">rowSpace</option>
-            <option value="oneMat" id="eigen">eigen</option>
-            <option value="oneMat" id="diag">diag</option>
-            <option value="oneMat" id="diagVerify">diagVerify</option>
+    <div id="MatrixPage">
+        <div class="Matrises">
 
-        </select>
-        
-        <select id="setMat">
-            <option></option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-        </select>
+            <div class="Matrix">
+                <div class="MatHead">
+                    <h2 class="headTitle">A</h2>
+                    <button onclick="print('A','Ab')" class="headButton" id="Ab">►</button>
+                </div>
+                <p id="A" class="array"></p>
+            </div>
 
-        <select id="set" onchange="setSelect(this.value)">
-            <option></option>
-            <option value="set">Set Matrix elements</option>
-            <option value="setFun">Matrix to</option>
-        </select>
+            <div class="Matrix">
+                <div class="MatHead">
+                    <h2 class="headTitle">B</h2>
+                    <button onclick="print('B','Bb')" class="headButton" id="Bb">►</button>
+                </div>
+                <p id="B" class="array"></p>
+            </div>
 
-        <select id="setFun" onchange="setFunSelect(this.value)">
-            <option></option>
-            <option value="oneMat" id="ref">ref</option>
-            <option value="oneMat" id="rref">rref</option>
-            <option value="oneMat" id="inverse">inverse</option>
-            <option value="twoMat" id="algebra">algebra</option>
-        </select>
+            <div class="Matrix">
+                <div class="MatHead">
+                    <h2 class="headTitle">C</h2>
+                    <button onclick="print('C','Cb')" class="headButton" id="Cb">►</button>
+                </div>
+                <p id="C" class="array"></p>
+            </div>
 
-        <select id="oneMat">
-            <option></option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-        </select>
+        </div>
 
-        <select id="opr">
-            <option></option>
-            <option>+</option>
-            <option>-</option>
-            <option>/</option>
-            <option>*</option>
-            <option>.</option>
-        </select>
+        <div>
+            <select id="select" onchange="select(this.value)">
+                <option></option>
+                <option value="find">Print</option>
+                <option value="set">Set</option>
+            </select>
+            <select id="find" onchange="funSelect(this.value),opration()">
+                <option></option>
+                <option value="oneMat" id="ref">Row Echelon Form</option>
+                <option value="oneMat" id="rref">Reduced Row Echelon Form</option>
+                <option value="oneMat" id="det">Determinant</option>
+                <option value="oneMat" id="inverse">Inverse</option>
+                <option value="twoMat" id="cramer">Cramer's Rule</option>
+                <option value="twoMat" id="algebra">Algebra</option>
+                <option value="oneMat" id="linDep">Linear Independence</option>
+                <option value="oneMat" id="basisDimension">Basis and Dimension</option>
+                <option value="oneMat" id="colSpace">Column Spacee</option>
+                <option value="oneMat" id="rowSpace">Row Space</option>
+                <option value="oneMat" id="eigen">Eigen Value and Vector</option>
+                <option value="oneMat" id="diag">Diagonalization</option>
+                <option value="oneMat" id="diagVerify">diagVerify</option>
 
-        <select id="twoMat">
-            <option></option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-        </select>
+            </select>
 
-        <button onclick="submit()">submit</button>
+            <select id="setMat">
+                <option></option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+
+            <select id="set" onchange="setSelect(this.value)">
+                <option></option>
+                <option value="set">Set Matrix Elements</option>
+                <option value="setFun">Matrix to</option>
+            </select>
+
+            <select id="setFun" onchange="setFunSelect(this.value)">
+                <option></option>
+                <option value="oneMat" id="ref">Row Echelon Form</option>
+                <option value="oneMat" id="rref">Reduced Row Echelon Form</option>
+                <option value="oneMat" id="inverse">Inverse</option>
+                <option value="twoMat" id="algebra">Algebra</option>
+            </select>
+
+            <select id="oneMat">
+                <option></option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+
+            <select id="opr">
+                <option></option>
+                <option>+</option>
+                <option>-</option>
+                <option>/</option>
+                <option>*</option>
+                <option>.</option>
+            </select>
+
+            <select id="twoMat">
+                <option></option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+
+            <button id="submit" onclick="submit()">Submit</button>
+        </div>
+
+        <input id="rows" type="number" class="setInput" placeholder="rows">
+        <input id="cols" type="number" class="setInput" placeholder="columns">
+        <textarea id="matrixInput" class="setInput" placeholder="Enter the Matrix exp: 1 2 3 4"></textarea>
+
+        <div id="outputDiv">
+            <h2>Output</h2>
+            <div id="output"></div>
+        </div>
     </div>
 
-    <input id="rows" type="number" class="setInput" placeholder="rows">
-    <input id="cols" type="number" class="setInput" placeholder="columns">
-    <textarea id="matrixInput" class="setInput" placeholder="Enter the Matrix exp: 1 2 3 4"></textarea>
-
-    <h2>Output</h2>
-    <div id="output"></div>
+    <div id="ODE">
+        <h2>Output</h2>
+        <div id="output2" style="background:#111; color:#0f0; padding:10px; height:200px; overflow:auto;"></div>
+        <div>
+        <input id="input" placeholder="Enter a function, example:  y(x).diff(x,2) + 3*y(x).diff(x) + 2*y(x) - (x**2 + exp(2*x) + sin(3*x)) " style="width:80%;">
+        </div>
+        <button onclick="runODE()">Run</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

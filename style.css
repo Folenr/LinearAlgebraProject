@@ -1,7 +1,3 @@
-body{
-    padding: 10px;
-    margin: 30px;
-}
 .Matrises{
     display: flex;
     justify-content: space-between;
@@ -41,4 +37,39 @@ body{
     height: 250px;
     overflow-y: auto;
     border-radius: 5px;
+}
+
+.sidebar {
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#MatrixPage {
+  margin-left: 150px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+#ODE {
+  margin-left: 150px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+.sidebarButton {
+    font-size: 24px;
+    background-color: #efefef;
+    padding: 20px;
+    border: 0;
+}
+.sidebarButton:hover{
+    font-size: 30px;
+    background-color: #a4a4a4;
 }
