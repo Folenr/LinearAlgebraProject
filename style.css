@@ -1,3 +1,13 @@
+body{
+    transition: background-color 0.3s, color 0.3s;
+}
+body.lightmode{
+    background-color: #D8E2DC;
+}
+
+body.darkmode{
+    background-color: #0B2545;
+}
 .Matrises{
     display: flex;
     justify-content: space-between;
@@ -14,30 +24,60 @@
 
 .headTitle{
     padding: 15px;
-    background-color: aquamarine;
+    transition: background-color 0.3s, color 0.3s;
 }
-
-.headButton{
-    background-color: azure;
-    border: 0px;
-    font-size: 35px;
-    width: 40;
-    height: 40px;
-    padding: 15px;
+.headTitle.lightmode{
+    background-color: #F4ACB7;
+}
+.headTitle.darkmode{
+    background-color: #13315C;
 }
 
 .array{
-    background-color: beige;
+    transition: background-color 0.3s, color 0.3s;
     font-size: 25px;
+    min-height: 100px;
+    min-width: 170px;
 }
+.array.lightmode{
+    background-color: #f3d6c8;
+}
+.array.darkmode{
+    background-color: #134074;
+}
+
 #output {
-    background: #111;
-    color: #0f0;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 24px;
     padding: 10px;
     height: 250px;
     overflow-y: auto;
     border-radius: 5px;
 }
+#output.lightmode{
+    background: #9D8189;
+    color: #ffffff;
+}
+#output.darkmode{
+    background: #EEF4ED;
+}
+
+#output2{
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 24px;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+#output2.lightmode{
+    background: #9D8189;
+    color: #ffffff;
+}
+#output2.darkmode{
+    background: #EEF4ED;
+}
+
 
 .sidebar {
     top: 0;
@@ -45,12 +85,18 @@
     margin: 0;
     padding: 0;
     width: 150px;
-    background-color: #f1f1f1;
     position: fixed;
     height: 100%;
     overflow: auto;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+.sidebar.lightmode{
+    background-color: #FFCAD4;
+}
+.sidebar.darkmode{
+    background-color: #134074;
 }
 
 #MatrixPage {
@@ -65,11 +111,58 @@
 }
 .sidebarButton {
     font-size: 24px;
-    background-color: #efefef;
+    transition: background-color 0.3s, color 0.3s;
     padding: 20px;
     border: 0;
 }
-.sidebarButton:hover{
+.sidebarButton.lightmode{
+    background-color: #FFCAD4;
+}
+.sidebarButton.darkmode{
+    background-color: #134074;
+}
+
+
+.sidebarButton.lightmode:hover{
     font-size: 30px;
     background-color: #a4a4a4;
+}
+.sidebarButton.darkmode:hover{
+    font-size: 30px;
+    background-color: #0a2f58;
+}
+
+.arrow {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.arrow span {
+    position: absolute;
+    width: 20px;
+    height: 4px;
+    background: black;
+    margin: 40px;
+    transition: transform .25s ease;
+    transform-origin: left center;
+}
+
+/*Right Arrow*/
+.arrow span:first-child {
+    transform: rotate(-135deg);
+}
+
+.arrow span:last-child {
+    transform: rotate(135deg);
+}
+
+/*Down Arrow*/
+.arrow.rotate span:first-child {
+    transform: rotate(-45deg);
+}
+
+.arrow.rotate span:last-child {
+    transform: rotate(-135deg);
 }

@@ -332,6 +332,7 @@ class API:
         self.buffer.truncate(0)
         self.buffer.seek(0)
 
+        print("Your Equation is : ",eq_str)
         print(ODE(eq_str))
 
         sys.stdout = sys.__stdout__

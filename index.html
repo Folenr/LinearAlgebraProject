@@ -16,6 +16,7 @@
     <div class="sidebar">
         <button class="sidebarButton" onclick="showMatrixPage()">Matrix</button>
         <button class="sidebarButton" onclick="hideMatrixPage()">ODE</button>
+        <button class="sidebarButton" id="theme-toggle">Switch to Dark Mode</button>
 
     </div>
 
@@ -25,7 +26,10 @@
             <div class="Matrix">
                 <div class="MatHead">
                     <h2 class="headTitle">A</h2>
-                    <button onclick="print('A','Ab')" class="headButton" id="Ab">►</button>
+                    <div onclick="print('A','arrowA')" class="arrow" id="arrowA">
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
                 <p id="A" class="array"></p>
             </div>
@@ -33,7 +37,10 @@
             <div class="Matrix">
                 <div class="MatHead">
                     <h2 class="headTitle">B</h2>
-                    <button onclick="print('B','Bb')" class="headButton" id="Bb">►</button>
+                    <div onclick="print('B','arrowB')" class="arrow" id="arrowB">
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
                 <p id="B" class="array"></p>
             </div>
@@ -41,7 +48,10 @@
             <div class="Matrix">
                 <div class="MatHead">
                     <h2 class="headTitle">C</h2>
-                    <button onclick="print('C','Cb')" class="headButton" id="Cb">►</button>
+                    <div onclick="print('C','arrowC')" class="arrow" id="arrowC">
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
                 <p id="C" class="array"></p>
             </div>
@@ -131,9 +141,11 @@
 
     <div id="ODE">
         <h2>Output</h2>
-        <div id="output2" style="background:#111; color:#0f0; padding:10px; height:200px; overflow:auto;"></div>
+        <div id="output2"></div>
         <div>
-        <input id="input" placeholder="Enter a function, example:  y(x).diff(x,2) + 3*y(x).diff(x) + 2*y(x) - (x**2 + exp(2*x) + sin(3*x)) " style="width:80%;">
+            <input id="input"
+                placeholder="Enter a function, example:  y(x).diff(x,2) + 3*y(x).diff(x) + 2*y(x) - (x**2 + exp(2*x) + sin(3*x)) "
+                style="width:80%;">
         </div>
         <button onclick="runODE()">Run</button>
     </div>

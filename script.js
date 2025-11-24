@@ -1,3 +1,4 @@
+document.getElementById("output").innerHTML += 'Welcome to My Program' + "<br>";
 function hideMatrixPage(){
     document.getElementById("MatrixPage").style.display = "none";
     document.getElementById("ODE").style.display = "block";
@@ -7,6 +8,44 @@ function showMatrixPage(){
     document.getElementById("ODE").style.display = "none";
 }
 document.getElementById("ODE").style.display = "none";
+
+const toggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+const sidebar = document.querySelector('.sidebar');
+const output = document.getElementById('output');
+const output2 = document.getElementById('output2');
+const headTitles = document.querySelectorAll('.headTitle');
+const arrays = document.querySelectorAll('.array');
+const sidebarButtons = document.querySelectorAll('.sidebarButton');
+
+body.classList.add('lightmode');
+sidebar.classList.add('lightmode');
+output.classList.add('lightmode');
+output2.classList.add('lightmode');
+headTitles.forEach(headTitle => headTitle.classList.add('lightmode'));
+arrays.forEach(array => array.classList.add('lightmode'));
+sidebarButtons.forEach(sidebarButton => sidebarButton.classList.add('lightmode'));
+toggleButton.addEventListener('click', () => {
+    if (body.classList.contains('lightmode')) {
+        body.classList.replace('lightmode', 'darkmode');
+        sidebar.classList.replace('lightmode', 'darkmode');
+        output.classList.replace('lightmode', 'darkmode');
+        output2.classList.replace('lightmode', 'darkmode');
+        headTitles.forEach(headTitle => headTitle.classList.replace('lightmode', 'darkmode'));
+        arrays.forEach(array => array.classList.replace('lightmode', 'darkmode'));
+        sidebarButtons.forEach(sidebarButton => sidebarButton.classList.replace('lightmode', 'darkmode'));
+        toggleButton.textContent = 'Switch to Light Mode';
+    } else {
+        body.classList.replace('darkmode', 'lightmode');
+        sidebar.classList.replace('darkmode', 'lightmode');
+        output.classList.replace('darkmode', 'lightmode');
+        output2.classList.replace('darkmode', 'lightmode');
+        headTitles.forEach(headTitle => headTitle.classList.replace('darkmode', 'lightmode'));
+        arrays.forEach(array => array.classList.replace('darkmode', 'lightmode'));
+        sidebarButtons.forEach(sidebarButton => sidebarButton.classList.replace('darkmode', 'lightmode'));
+        toggleButton.textContent = 'Switch to Dark Mode';
+    }
+});
 
 function runODE() {
         pywebview.api.odeFunction(document.getElementById("input").value).then(result => {
@@ -21,11 +60,11 @@ function print(id,bId) {
     pywebview.api.print(id).then(result => {
         result = result.replace(/\n/g, "<br>");
         document.getElementById(id).innerHTML = result;
-        document.getElementById(bId).innerHTML = "▼";
+        document.getElementById(bId).classList.toggle("rotate");
     });
 } else {
         document.getElementById(id).innerHTML = null;
-         document.getElementById(bId).innerHTML = "►";
+         document.getElementById(bId).classList.toggle("rotate");
 }
 }
 function rePrint(id,bId){
