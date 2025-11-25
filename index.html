@@ -59,12 +59,12 @@
         </div>
 
         <div>
-            <select id="select" onchange="select(this.value)">
+            <select class="customselect" id="select" onchange="select(this.value)">
                 <option></option>
                 <option value="find">Print</option>
                 <option value="set">Set</option>
             </select>
-            <select id="find" onchange="funSelect(this.value),opration()">
+            <select class="customselect" id="find" onchange="funSelect(this.value),opration()">
                 <option></option>
                 <option value="oneMat" id="ref">Row Echelon Form</option>
                 <option value="oneMat" id="rref">Reduced Row Echelon Form</option>
@@ -82,20 +82,20 @@
 
             </select>
 
-            <select id="setMat">
+            <select class="customselect" id="setMat">
                 <option></option>
                 <option>A</option>
                 <option>B</option>
                 <option>C</option>
             </select>
 
-            <select id="set" onchange="setSelect(this.value)">
+            <select class="customselect" id="set" onchange="setSelect(this.value)">
                 <option></option>
                 <option value="set">Set Matrix Elements</option>
                 <option value="setFun">Matrix to</option>
             </select>
 
-            <select id="setFun" onchange="setFunSelect(this.value)">
+            <select class="customselect" id="setFun" onchange="setFunSelect(this.value)">
                 <option></option>
                 <option value="oneMat" id="ref">Row Echelon Form</option>
                 <option value="oneMat" id="rref">Reduced Row Echelon Form</option>
@@ -103,14 +103,14 @@
                 <option value="twoMat" id="algebra">Algebra</option>
             </select>
 
-            <select id="oneMat">
+            <select class="customselect" id="oneMat">
                 <option></option>
                 <option>A</option>
                 <option>B</option>
                 <option>C</option>
             </select>
 
-            <select id="opr">
+            <select class="customselect" id="opr">
                 <option></option>
                 <option>+</option>
                 <option>-</option>
@@ -119,7 +119,7 @@
                 <option>.</option>
             </select>
 
-            <select id="twoMat">
+            <select class="customselect" id="twoMat">
                 <option></option>
                 <option>A</option>
                 <option>B</option>
@@ -129,9 +129,11 @@
             <button id="submit" onclick="submit()">Submit</button>
         </div>
 
-        <input id="rows" type="number" class="setInput" placeholder="rows">
-        <input id="cols" type="number" class="setInput" placeholder="columns">
-        <textarea id="matrixInput" class="setInput" placeholder="Enter the Matrix exp: 1 2 3 4"></textarea>
+        <div class="input">
+            <input id="rows" type="number" class="setInput" placeholder="row">
+            <input id="cols" type="number" class="setInput" placeholder="column">
+            <textarea id="matrixInput" class="setInput" placeholder="Enter Matrix Elements :    1 2 3 4"></textarea>
+        </div>
 
         <div id="outputDiv">
             <h2>Output</h2>

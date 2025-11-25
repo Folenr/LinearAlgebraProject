@@ -2,17 +2,31 @@ body{
     transition: background-color 0.3s, color 0.3s;
 }
 body.lightmode{
-    background-color: #D8E2DC;
+    background-color: #fff9f9;
+    color: black;
 }
 
 body.darkmode{
     background-color: #0B2545;
+    color: white;
 }
 .Matrises{
     display: flex;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    border-radius: 12px;
     justify-content: space-between;
     font-family: "Ubuntu";
 }
+.Matrises.lightmode{
+    background-color: #e1e6dc;
+}
+.Matrises.darkmode{
+    background-color: #1d5faf;
+}
+
 .Matrix{
     display: flex;
     flex-direction: column;
@@ -28,38 +42,29 @@ body.darkmode{
 }
 .headTitle.lightmode{
     background-color: #F4ACB7;
+    color: black;
 }
 .headTitle.darkmode{
-    background-color: #13315C;
+    background-color: #08101c;
+    color: white;
 }
 
 .array{
     transition: background-color 0.3s, color 0.3s;
     font-size: 25px;
-    min-height: 100px;
-    min-width: 170px;
-}
-.array.lightmode{
-    background-color: #f3d6c8;
-}
-.array.darkmode{
-    background-color: #134074;
+    min-height: 150px;
+    min-width: 250px;
 }
 
 #output {
     transition: background-color 0.3s, color 0.3s;
     font-size: 24px;
     padding: 10px;
-    height: 250px;
+    height: 400px;
     overflow-y: auto;
     border-radius: 5px;
-}
-#output.lightmode{
-    background: #9D8189;
-    color: #ffffff;
-}
-#output.darkmode{
-    background: #EEF4ED;
+    background: #05101c;
+    color: #007e1b;
 }
 
 #output2{
@@ -69,15 +74,9 @@ body.darkmode{
     height: 250px;
     overflow-y: auto;
     border-radius: 5px;
+    background: #05101c;
+    color: #007e1b;
 }
-#output2.lightmode{
-    background: #9D8189;
-    color: #ffffff;
-}
-#output2.darkmode{
-    background: #EEF4ED;
-}
-
 
 .sidebar {
     top: 0;
@@ -93,7 +92,7 @@ body.darkmode{
     transition: background-color 0.3s, color 0.3s;
 }
 .sidebar.lightmode{
-    background-color: #FFCAD4;
+    background-color: #f2f2f2;
 }
 .sidebar.darkmode{
     background-color: #134074;
@@ -116,10 +115,12 @@ body.darkmode{
     border: 0;
 }
 .sidebarButton.lightmode{
-    background-color: #FFCAD4;
+    background-color: #f2f2f2;
+    color: black;
 }
 .sidebarButton.darkmode{
     background-color: #134074;
+    color: white;
 }
 
 
@@ -131,10 +132,118 @@ body.darkmode{
     font-size: 30px;
     background-color: #0a2f58;
 }
+#matrixInput {
+    height: 75px;
+    width: 75px;
+    margin: 5px;
+}
+#rows,#cols{
+    width: 50px;
+    height: 20px;
+}
+#submit{
+    appearance: none;
+    font-family:"Ubuntu";
+    transition: background-color 0.3s, color 0.3s;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+#submit.lightmode{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: black;
+}
+#submit.darkmode{
+    background-color: #2e61c7;
+    border: 1px solid #001368;
+    color: white;
+}
+#submit:hover{
+    background-color: #dbd2d2;
+}
+.input{
+    display: flex;
+    align-items: center;
+}
+.setInput {
+    width: 100%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px; 
+    font-size: 13px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+.setInput.lightmode{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: black;
+}
+.setInput.darkmode{
+    background-color: #2e61c7;
+    border: 1px solid #001368;
+    color: white;
+}
+
+.setInput:focus {
+    border-color: #007bff; 
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.setInput::placeholder{
+    color: #aaaaaa;
+}
+
+textarea.setInput {
+    resize: vertical;
+    height: 100px;
+}
+
+.customselect {
+    appearance: none;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+.customselect.lightmode{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: black;
+}
+.customselect.darkmode{
+    background-color: #2e61c7;
+    border: 1px solid #001368;
+    color: white;
+}
+
+.customselect:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.customselect::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); 
+    border: solid transparent; 
+    border-width: 6px 6px 0;
+    border-top-color: #333; 
+    pointer-events: none; 
+}
+
 
 .arrow {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     position: relative;
     cursor: pointer;
 }
